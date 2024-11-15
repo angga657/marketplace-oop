@@ -31,7 +31,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST["restoreCategoryId"]))
         <h1>Category List</h1>
         <div class="d-flex justify-content-end mb-3">
             <a href="View/category/create.php" class="btn btn-primary">Add New Category</a>
-            <a href="index.php" class="btn btn-primary mx-3">Product List</a>
+            <a href="index.php" class="btn btn-primary btn-success mx-3">Go to Product List</a>
         </div>
         
         <?php if (!empty($categories)): ?>
