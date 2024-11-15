@@ -18,7 +18,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         if ($categoryController->create($data)) {
             echo "<script>alert('Category added successfully!')</script>";
-            header("Location: ../../index.php");
+            header("Location: ../../categories.php");
             exit();
         } else {
             echo "<script>alert('Failed to add category!')</script>";
@@ -63,7 +63,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             </div>
 
             <button type="submit" class="btn btn-primary">Create Category</button>
-            <a href="../../index.php" class="btn btn-secondary">Cancel</a>
+            <a href="../../categories.php" class="btn btn-secondary">Cancel</a>
         </form>
     </div>
 </body>

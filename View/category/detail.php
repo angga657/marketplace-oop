@@ -47,7 +47,7 @@ if (isset($_GET['id'])) {
 </head>
 
 <body>
-    <a href="../../index.php" class="btn btn-secondary mb-3">Back to Category List</a>
+    <a href="../../categories.php" class="btn btn-secondary mb-3">Back to Category List</a>
 
     <?php if (!empty($categoryDetails)): ?>
         <h2>Category Details</h2>

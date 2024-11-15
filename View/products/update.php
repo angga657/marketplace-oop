@@ -1,52 +1,34 @@
 <?php
-include(__DIR__ . '/../Config/init.php');
-
-$id = $_GET['id'];
+include(__DIR__ . '/../../Config/init.php');
 
 $productController = new ProductController();
-// call product detail
-
 $errors = [];
 
+// Get the product ID from the URL and retrieve product details
+if (isset($_GET['id'])) {
+    $id = $_GET['id'];
+    $productDetails = $productController->show($id);
+    $product_name = $productDetails['product_name'] ?? '';
+}
+
+// Handle form submission for updating the product
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    //validate product_name
+    // Validate Product_name
     if (empty($_POST["product_name"])) {
         $errors['product_name'] = "Product Name is required";
     } else {
         $product_name = $_POST["product_name"];
     }
-    // Validate price
-    if (empty($_POST["price"])) {
-        $errors['price'] = "Price is required";
-    } else if (is_numeric($_POST["price"]) == false) {
-        $errors['price'] = "Price must be a number";
-    } else if (floatval($_POST["price"]) <= 0) {
-        $errors['price'] = "Price should be greater than zero";
-    } else {
-        $price = $_POST["price"];
-    }
-    // Validate quantity
-    if (!isset($_POST["quantity"]) || empty($_POST["quantity"])) {
-        $errors['quantity'] = "Quantity is required";
-    } else if (!is_numeric($_POST["quantity"])) {
-        $errors['quantity'] = "Quantity must be a valid number";
-    } else if ((int)$_POST["quantity"] < 0) {
-        $errors['quantity'] = "Quantity cannot be negative";
-    } else if ($_POST["quantity"] != (string)(int)$_POST["quantity"]) {
-        $errors['quantity'] = "Quantity must be an integer";
-    } else {
-        $quantity = $_POST["quantity"];
-    }
-    $description  = $_POST['description'];
 
     // If there are no validation errors, proceed with updating the product
     if (empty($errors)) {
-
+        $data = ['product_name' => $product_name];
 
         if ($productController->update($id, $data)) {
-            header("Location: ../index.php");
+            header("Location: ../../index.php");
+            exit();
         } else {
-            echo "Error";
+            echo "Error updating product.";
         }
     }
 }
@@ -57,7 +39,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Update Product</title>
     <!-- Include Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -65,12 +47,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         body {
             padding: 20px;
         }
-
         form {
             max-width: 600px;
             margin: auto;
         }
-
         label {
             margin-top: 10px;
         }
@@ -78,7 +58,22 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 </head>
 
 <body>
+    <div class="container">
+        <h1>Update Product</h1>
+        
+        <form method="POST">
+            <div class="mb-3">
+                <label for="product_name" class="form-label">Product Name</label>
+                <input type="text" name="product_name" class="form-control" id="product_name" value="<?php echo htmlspecialchars($category_name); ?>">
+                <?php if (isset($errors['product_name'])): ?>
+                    <div class="text-danger"><?php echo $errors['product_name']; ?></div>
+                <?php endif; ?>
+            </div>
 
+            <button type="submit" class="btn btn-primary">Update Product</button>
+            <a href="../../index.php" class="btn btn-secondary">Cancel</a>
+        </form>
+    </div>
 </body>
 
 </html>

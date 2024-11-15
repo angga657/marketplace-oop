@@ -15,7 +15,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['confirmDelete'])) {
     if ($categoryController->destroy($categoryId)) {
         echo "<script>
                 alert('Category deleted successfully!');
-                window.location.href = '../../index.php';
+                window.location.href = '../../categories.php';
               </script>";
         exit();
     } else {
@@ -41,11 +41,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['confirmDelete'])) {
         <p>Are you sure you want to delete the category "<strong><?php echo htmlspecialchars($categoryDetails['category_name']); ?></strong>"?</p>
         <form method="POST">
             <button type="submit" name="confirmDelete" class="btn btn-danger">Confirm Delete</button>
-            <a href="../../index.php" class="btn btn-secondary">Cancel</a>
+            <a href="../../categories.php" class="btn btn-secondary">Cancel</a>
         </form>
     <?php else: ?>
         <p>Category not found.</p>
-        <a href="../../index.php" class="btn btn-secondary">Back to Category List</a>
+        <a href="../../categories.php" class="btn btn-secondary">Back to Category List</a>
     <?php endif; ?>
 </body>
 

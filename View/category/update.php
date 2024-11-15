@@ -25,7 +25,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $data = ['category_name' => $category_name];
 
         if ($categoryController->update($id, $data)) {
-            header("Location: ../../index.php");
+            header("Location: ../../categories.php");
             exit();
         } else {
             echo "Error updating category.";
@@ -71,7 +71,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             </div>
 
             <button type="submit" class="btn btn-primary">Update Category</button>
-            <a href="../../index.php" class="btn btn-secondary">Cancel</a>
+            <a href="../../categories.php" class="btn btn-secondary">Cancel</a>
         </form>
     </div>
 </body>

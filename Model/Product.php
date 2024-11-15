@@ -2,6 +2,8 @@
 
 require(__DIR__ . '/../Config/init.php');
 
+
+
 class Product extends Model
 {
     /**
@@ -16,12 +18,13 @@ class Product extends Model
     }
 
     /**
-     * Method  to get all products from the database and return the result as an associative array.
+     * Method  to get all categories from the database and return the result as an associative array.
      */
     public function getAllProducts()
     {
         // call database selectData
         // return fetched data
+        return $this->db->selectData($this->tableName, null);
     }
 
 
@@ -29,6 +32,8 @@ class Product extends Model
     {
         // call database selectData with id
         // return fetched data
+        $conditions = ['id' => $id];
+        return $this->db->selectData($this->tableName, $id);
     }
 
     public function createProduct($data)
@@ -36,21 +41,28 @@ class Product extends Model
         // construct data as array association
         // call database insertData and pass the constructed data
         // return boolean
+        $productData = ['product_name' => $data['product_name']];
+        return $this->db->insertData($this->tableName, $productData);
     }
 
     public function updateProduct($id, $data)
     {
         // call updateData
         //return boolean
+        $productData = ['product_name' => $data['product_name']];
+        return $this->db->updateData($this->tableName, $id, $productData);
     }
 
-    public function deleteProduct($id)
+
+    public function destroy($id)
     {
-        // call deteleRecord
+        // Use deleteRecord from the Database class to mark the product as deleted
+        return $this->db->deleteRecord($this->tableName, $id);
     }
 
-    public function restoreProduct()
+    public function restoreCategory($id)
     {
         // call restoreRecord
+        return $this->db->restoreRecord($this->tableName);
     }
 }
