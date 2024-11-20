@@ -10,7 +10,7 @@ $categories = $categoryController->index();
 // Handle restoring all deleted categories
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST["restoreCategoryId"])) {
     $categoryController->restore($_POST["restoreCategoryId"]);
-    header("Location: index.php");
+    header("Location: categories.php");
     exit();
 }
 ?>
